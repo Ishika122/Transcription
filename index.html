@@ -65,23 +65,34 @@
     <p id="rnaSequence"></p>
   </main>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const conversionForm = document.getElementById("conversionForm");
-      const dnaSequenceInput = document.getElementById("dnaSequence");
-      const rnaSequenceOutput = document.getElementById("rnaSequence");
+    function translateDNA() {
+            var inputDNA = document.getElementById("inputDNA").value.toUpperCase();
+            var outputRNA = "";
 
-      conversionForm.addEventListener("submit", function(event) {
-        event.preventDefault();
+            for (var i = 0; i < inputDNA.length; i++) {
+                var nucleotide = inputDNA.charAt(i);
 
-        const dnaSequence = dnaSequenceInput.value.toUpperCase();
-        const rnaSequence = convertToRNA(dnaSequence);
-        rnaSequenceOutput.textContent = `RNA Sequence: ${rnaSequence}`;
-      });
+                switch (nucleotide) {
+                    case "A":
+                        outputRNA += "U";
+                        break;
+                    case "T":
+                        outputRNA += "A";
+                        break;
+                    case "C":
+                        outputRNA += "G";
+                        break;
+                    case "G":
+                        outputRNA += "C";
+                        break;
+                    default:
+                        outputRNA += nucleotide;
+                        break;
+                }
+            }
 
-      function convertToRNA(dna) {
-        return dna.replace(/T/g, "U");
-      }
-    });
+            document.getElementById("output").textContent = outputRNA;
+        }
   </script>
   
 <pre style="font-size: 125%;" style="text-align: left;" 
